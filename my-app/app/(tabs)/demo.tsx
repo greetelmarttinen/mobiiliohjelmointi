@@ -12,8 +12,8 @@ export default function DemoScreen() {
                 gap: 15
             }
         }>
-            <Text>
-                Hello youuuuu !
+            <Text style={{ fontSize: 22, color: 'black', fontStyle: 'italic', fontWeight: 'bold' }}>
+                I did this myself! :3
             </Text>
         </View>
     )
