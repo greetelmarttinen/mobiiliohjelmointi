@@ -1,11 +1,36 @@
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 export default function Calculator() {
 
     // luodaan state ja asetetaan sen alkuarvo tyhjäksi
-    const [text, setText] = useState("");
+    const [firstNumber, setFirstNumber] = useState("");
+
+    // luodaan state ja asetetaan sen alkuarvo tyhjäksi
+    const [secondNumber, setSecondNumber] = useState("");
+
+    const buttonPlus = () => {
+        return (
+            <Pressable
+                style={({ pressed }) => [
+                    styles.button,
+                    { backgroundColor: pressed ? 'darkred' : 'lightgray' },
+                ]}
+                onPress={() => {
+
+                }}
+            >
+                <Text style={styles.buttonText}>+</Text>
+
+            </Pressable>
+        );
+
+    }
+
+    const buttonMinus = () => {
+
+    }
 
     return (
         <View style={
@@ -44,6 +69,9 @@ export default function Calculator() {
                     }>
                         Result:
                     </Text>
+                    <Text>
+
+                    </Text>
                 </View>
 
 
@@ -53,8 +81,8 @@ export default function Calculator() {
                         style={styles.input}
                         placeholder="Enter a number"
                         placeholderTextColor={"black"}
-                        onChangeText={text => setText(text)}
-                        value={text}
+                        onChangeText={firstNumber => setFirstNumber(firstNumber)}
+                        value={firstNumber}
                     />
                 </View>
 
@@ -63,13 +91,32 @@ export default function Calculator() {
                         style={styles.input}
                         placeholder="Enter a number"
                         placeholderTextColor={"black"}
-                        onChangeText={text => setText(text)}
-                        value={text}
+                        onChangeText={secondNumber => setSecondNumber(secondNumber)}
+                        value={secondNumber}
                     />
                 </View>
 
+                <View style={
+                    {
+                        flexDirection: "row",
+                        alignItems: "center"
+                    }
+                }>
+                    <Button
+                        onPress={buttonPlus}
+                        title="+"
+                        color={"black"}
+                    >
+                    </Button>
 
+                    <Button
+                        onPress={buttonMinus}
+                        title="-"
+                        color={"black"}
+                    >
+                    </Button>
 
+                </View>
 
 
 
@@ -92,6 +139,18 @@ const styles = StyleSheet.create({
         height: 40,
         margin: 12,
         borderWidth: 1,
-        padding: 10
+        padding: 10,
+    },
+    button: {
+        borderRadius: 25,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    buttonText: {
+        color: "black",
+        fontSize: 15,
+        fontWeight: "bold"
     }
 })
