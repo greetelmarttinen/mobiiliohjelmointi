@@ -11,15 +11,16 @@ export default function Calculator() {
     const [secondNumber, setSecondNumber] = useState("");
 
     // laskutoimitusten tulos
-    const [result, setResult] = useState("");
+    const [result, setResult] = useState(0);
 
     const buttonPlus = () => {
-
-
+        const sum = Number(firstNumber) + Number(secondNumber);
+        return setResult(sum);
     }
 
     const buttonMinus = () => {
-
+        const diff = Number(firstNumber) - Number(secondNumber);
+        return setResult(diff);
     }
 
     return (
@@ -58,7 +59,7 @@ export default function Calculator() {
                         style={styles.input}
                         placeholder="Enter a number"
                         placeholderTextColor={"black"}
-                        onChangeText={firstNumber => setFirstNumber(firstNumber)}
+                        onChangeText={setFirstNumber}
                         inputMode="numeric"
                         value={firstNumber}
                     />
@@ -69,7 +70,7 @@ export default function Calculator() {
                         style={styles.input}
                         placeholder="Enter a number"
                         placeholderTextColor={"black"}
-                        onChangeText={secondNumber => setSecondNumber(secondNumber)}
+                        onChangeText={setSecondNumber}
                         inputMode="numeric"
                         value={secondNumber}
                     />
