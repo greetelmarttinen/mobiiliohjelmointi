@@ -1,30 +1,20 @@
 import { useState } from "react";
-import { Button, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 
 export default function Calculator() {
 
-    // luodaan state ja asetetaan sen alkuarvo tyhjäksi
+    // luodaan state ensimmäiselle numerolle ja asetetaan sen alkuarvo tyhjäksi
     const [firstNumber, setFirstNumber] = useState("");
 
-    // luodaan state ja asetetaan sen alkuarvo tyhjäksi
+    // luodaan state toiselle numerolle ja asetetaan sen alkuarvo tyhjäksi
     const [secondNumber, setSecondNumber] = useState("");
 
+    // laskutoimitusten tulos
+    const [result, setResult] = useState("");
+
     const buttonPlus = () => {
-        return (
-            <Pressable
-                style={({ pressed }) => [
-                    styles.button,
-                    { backgroundColor: pressed ? 'darkred' : 'lightgray' },
-                ]}
-                onPress={() => {
 
-                }}
-            >
-                <Text style={styles.buttonText}>+</Text>
-
-            </Pressable>
-        );
 
     }
 
@@ -49,28 +39,15 @@ export default function Calculator() {
                 }
             }>
                 <View>
-                    <Text style={
-                        {
-                            fontSize: 25,
-                            fontWeight: "bold"
-                        }
-                    }>
+                    <Text style={styles.headerText}>
                         Calculator
                     </Text>
                 </View>
 
 
                 <View>
-                    <Text style={
-                        {
-                            fontSize: 18,
-                            color: "black"
-                        }
-                    }>
-                        Result:
-                    </Text>
-                    <Text>
-
+                    <Text style={styles.resultText}>
+                        Result: {result}
                     </Text>
                 </View>
 
@@ -82,6 +59,7 @@ export default function Calculator() {
                         placeholder="Enter a number"
                         placeholderTextColor={"black"}
                         onChangeText={firstNumber => setFirstNumber(firstNumber)}
+                        inputMode="numeric"
                         value={firstNumber}
                     />
                 </View>
@@ -92,40 +70,23 @@ export default function Calculator() {
                         placeholder="Enter a number"
                         placeholderTextColor={"black"}
                         onChangeText={secondNumber => setSecondNumber(secondNumber)}
+                        inputMode="numeric"
                         value={secondNumber}
                     />
                 </View>
 
-                <View style={
-                    {
-                        flexDirection: "row",
-                        alignItems: "center"
-                    }
-                }>
-                    <Button
-                        onPress={buttonPlus}
-                        title="+"
-                        color={"black"}
-                    >
-                    </Button>
+                <View style={styles.buttonRow}>
+                    <Pressable onPress={buttonPlus}>
+                        <Text style={styles.button}>+</Text>
+                    </Pressable>
 
-                    <Button
-                        onPress={buttonMinus}
-                        title="-"
-                        color={"black"}
-                    >
-                    </Button>
+                    <Pressable onPress={buttonMinus}>
+                        <Text style={styles.button}>-</Text>
+                    </Pressable>
 
                 </View>
 
-
-
-
             </View>
-
-
-
-
 
         </View >
 
@@ -134,6 +95,14 @@ export default function Calculator() {
 }
 
 const styles = StyleSheet.create({
+    headerText: {
+        fontSize: 25,
+        fontWeight: "bold"
+    },
+    resultText: {
+        fontSize: 20,
+        color: "black"
+    },
     // input -elementtien tyylitys
     input: {
         height: 40,
@@ -141,8 +110,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
     },
+    buttonRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 12
+    },
     button: {
-        borderRadius: 25,
+        backgroundColor: "white",
+        borderRadius: 15,
         paddingVertical: 10,
         paddingHorizontal: 20,
         justifyContent: "center",
@@ -150,7 +125,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: "black",
-        fontSize: 15,
+        fontSize: 50,
         fontWeight: "bold"
     }
 })
