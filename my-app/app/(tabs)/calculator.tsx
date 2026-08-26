@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 
 export default function Calculator() {
@@ -24,73 +24,74 @@ export default function Calculator() {
     }
 
     return (
-        <View style={
-            {
-                backgroundColor: "lightgreen",
-                borderWidth: 5,
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center"
-            }
-        }>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={
                 {
-                    flexDirection: "column",
+                    backgroundColor: "lightgreen",
+                    borderWidth: 5,
+                    flex: 1,
+                    justifyContent: "center",
                     alignItems: "center"
                 }
             }>
-                <View>
-                    <Text style={styles.headerText}>
-                        Calculator
-                    </Text>
+                <View style={
+                    {
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }
+                }>
+                    <View>
+                        <Text style={styles.headerText}>
+                            Calculator
+                        </Text>
+                    </View>
+
+
+                    <View>
+                        <Text style={styles.resultText}>
+                            Result: {result}
+                        </Text>
+                    </View>
+
+
+
+                    <View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Enter a number"
+                            placeholderTextColor={"black"}
+                            onChangeText={setFirstNumber}
+                            inputMode="numeric"
+                            value={firstNumber}
+                        />
+                    </View>
+
+                    <View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Enter a number"
+                            placeholderTextColor={"black"}
+                            onChangeText={setSecondNumber}
+                            inputMode="numeric"
+                            value={secondNumber}
+                        />
+                    </View>
+
+                    <View style={styles.buttonRow}>
+                        <Pressable onPress={buttonPlus}>
+                            <Text style={styles.button}>+</Text>
+                        </Pressable>
+
+                        <Pressable onPress={buttonMinus}>
+                            <Text style={styles.button}>-</Text>
+                        </Pressable>
+
+                    </View>
+
                 </View>
 
-
-                <View>
-                    <Text style={styles.resultText}>
-                        Result: {result}
-                    </Text>
-                </View>
-
-
-
-                <View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Enter a number"
-                        placeholderTextColor={"black"}
-                        onChangeText={setFirstNumber}
-                        inputMode="numeric"
-                        value={firstNumber}
-                    />
-                </View>
-
-                <View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Enter a number"
-                        placeholderTextColor={"black"}
-                        onChangeText={setSecondNumber}
-                        inputMode="numeric"
-                        value={secondNumber}
-                    />
-                </View>
-
-                <View style={styles.buttonRow}>
-                    <Pressable onPress={buttonPlus}>
-                        <Text style={styles.button}>+</Text>
-                    </Pressable>
-
-                    <Pressable onPress={buttonMinus}>
-                        <Text style={styles.button}>-</Text>
-                    </Pressable>
-
-                </View>
-
-            </View>
-
-        </View >
-
+            </View >
+        </TouchableWithoutFeedback>
 
     )
 }
