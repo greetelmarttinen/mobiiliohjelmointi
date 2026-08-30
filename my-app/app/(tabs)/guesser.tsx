@@ -1,4 +1,4 @@
-import { Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 
 export default function Guesser() {
@@ -8,15 +8,52 @@ export default function Guesser() {
     // arvauksien määrä
 
 
+    const guessButton = () => {
+
+    }
+
+
 
     return (
         // sallitaan avoinna olevan näppäimistön sulkeminen, kun käyttäjä painaa alueesta
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.container}>
-                <View>
+                <View style={styles.components}>
+                    {/* otsikkoteksti */}
                     <Text style={styles.headerText}>
                         Guesser game
                     </Text>
+
+                    {/* "ohjeet" pelin pelaamiseen */}
+                    <Text style={styles.infoText}>
+                        Guess a number between 1-100
+                    </Text>
+
+                    {/* viesti */}
+                    <Text>
+                        (message here)
+                    </Text>
+
+                    {/* arvauksen syöttökenttä */}
+                    <View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Enter a number"
+                            placeholderTextColor={"black"}
+                            inputMode="numeric"
+                            textAlign="center"
+                        />
+                    </View>
+
+                    {/* arvaus -näppäin */}
+                    <View>
+                        <Pressable onPress={guessButton}>
+                            <Text style={styles.button}>
+                                Make a guess!
+                            </Text>
+                        </Pressable>
+                    </View>
+
                 </View>
             </View>
 
@@ -34,8 +71,32 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
+    components: {
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 15
+    },
     headerText: {
         fontSize: 25,
+        fontWeight: "bold"
+    },
+    infoText: {
+        fontSize: 17
+    },
+    input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10
+    },
+    button: {
+        backgroundColor: "black",
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        color: "white",
         fontWeight: "bold"
     }
 })
