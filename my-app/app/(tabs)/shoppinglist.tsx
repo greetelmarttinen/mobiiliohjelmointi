@@ -10,13 +10,16 @@ export default function Shoppinglist() {
     // state tuotelistalle
     const [items, setItems] = useState<string[]>([]);
 
+    // handle add button
     const addButton = () => {
         setItems([...items, item]);
         setItem("");
     }
 
+    // clear shoppinglist array
     const clearButton = () => {
-
+        setItem("");
+        setItems([]);
     }
 
 
