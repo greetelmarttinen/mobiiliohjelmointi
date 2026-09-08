@@ -12,6 +12,7 @@ export default function Shoppinglist() {
 
     const addButton = () => {
         setItems([...items, item]);
+        setItem("");
     }
 
     const clearButton = () => {
