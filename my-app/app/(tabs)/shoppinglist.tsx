@@ -58,7 +58,7 @@ export default function Shoppinglist() {
                     <FlatList
                         data={items}
                         renderItem={({ item }) =>
-                            <Text>
+                            <Text style={styles.arrayItem}>
                                 {item}
                             </Text>}
                     />
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         gap: 15,
-        paddingTop: 200
+        paddingTop: 267
     },
     headerText: {
         fontSize: 25,
@@ -112,5 +112,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         color: "white",
         fontWeight: "bold"
+    },
+    arrayItem: {
+        textAlign: "center",
+        fontSize: 17
     }
 })
