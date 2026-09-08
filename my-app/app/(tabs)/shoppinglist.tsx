@@ -1,10 +1,17 @@
-import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import { useState } from "react";
+import { FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 
 export default function Shoppinglist() {
 
-    const addButton = () => {
+    // state tyhjälle tuotteelle
+    const [item, setItem] = useState("");
 
+    // state tuotelistalle
+    const [items, setItems] = useState<string[]>([]);
+
+    const addButton = () => {
+        setItems([...items, item]);
     }
 
     const clearButton = () => {
@@ -23,9 +30,11 @@ export default function Shoppinglist() {
                     <View>
                         <TextInput
                             style={styles.input}
-                            placeholder="Add item "
+                            placeholder="Add item"
                             placeholderTextColor={"black"}
                             textAlign="center"
+                            value={item}
+                            onChangeText={setItem}
                         />
                     </View>
 
@@ -42,6 +51,13 @@ export default function Shoppinglist() {
                         </Pressable>
                     </View>
 
+                    <FlatList
+                        data={items}
+                        renderItem={({ item }) =>
+                            <Text>
+                                {item}
+                            </Text>}
+                    />
 
                 </View>
 
@@ -58,12 +74,14 @@ const styles = StyleSheet.create({
         borderWidth: 5,
         flex: 1,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        flexDirection: "column",
     },
     components: {
         flexDirection: "column",
         alignItems: "center",
-        gap: 15
+        gap: 15,
+        paddingTop: 200
     },
     headerText: {
         fontSize: 25,
