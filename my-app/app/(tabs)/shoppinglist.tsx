@@ -61,6 +61,7 @@ export default function Shoppinglist() {
                             <Text style={styles.arrayItem}>
                                 {item}
                             </Text>}
+                        ListEmptyComponent={() => <Text style={{ fontStyle: "italic" }}>No items yet</Text>}
                     />
 
                 </View>
