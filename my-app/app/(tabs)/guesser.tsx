@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 
 export default function Guesser() {
 
     // arvauksen tallentaminen stateen
+    const [guess, setGuess] = useState(0);
 
-    // arvauksien määrä
+    // arvauksien määrän tallentaminen stateen
+    const [guesses, setGuesses] = useState<number[]>([]);
+
+    // oikea vastaus
+    const [correctAnsw, setCorrectAnsw] = useState(0);
+
+    // viesti käyttäjälle
+    const [message, setMessage] = useState("");
 
 
     const guessButton = () => {
