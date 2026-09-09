@@ -19,6 +19,23 @@ export default function Guesser() {
 
     const guessButton = () => {
 
+        setGuesses([...guesses, guess]);
+
+        // oikean vastauksen viesti
+        if (guess === correctAnsw) {
+            setMessage(`WOHOOO you guessed it! The number was  ${correctAnsw} and it took you ${guesses.length + 1} guesses!`)
+        }
+
+        // arvaus on pienempi kuin oikea vastaus
+        if (guess < correctAnsw) {
+            setMessage("Na a aaa 😕 Your guess was too low")
+        }
+
+        // arvaus on suurempi kuin oikea vastaus
+        if (guess > correctAnsw) {
+            setMessage("Noupp 🤯 Your guess was too low")
+        }
+
     }
 
 
@@ -39,8 +56,8 @@ export default function Guesser() {
                     </Text>
 
                     {/* viesti */}
-                    <Text>
-                        (message here)
+                    <Text style={styles.messageText}>
+                        {message}
                     </Text>
 
                     {/* arvauksen syöttökenttä */}
@@ -91,6 +108,9 @@ const styles = StyleSheet.create({
     },
     infoText: {
         fontSize: 17
+    },
+    messageText: {
+        textAlign: "center"
     },
     input: {
         height: 40,
