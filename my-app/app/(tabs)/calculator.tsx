@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import { FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 
 export default function Calculator() {
@@ -13,14 +13,19 @@ export default function Calculator() {
     // laskutoimitusten tulos
     const [result, setResult] = useState(0);
 
+    // tallennetaan laskutoimitus historiaan
+    const [history, setHistory] = useState<string[]>([]);
+
     const buttonPlus = () => {
         const sum = Number(firstNumber) + Number(secondNumber);
-        return setResult(sum);
+        setResult(sum);
+        setHistory([...history, `${firstNumber} + ${secondNumber} = ${sum}`]);
     }
 
     const buttonMinus = () => {
         const diff = Number(firstNumber) - Number(secondNumber);
-        return setResult(diff);
+        setResult(diff);
+        setHistory([...history, `${firstNumber} - ${secondNumber} = ${diff}`]);
     }
 
     return (
@@ -31,7 +36,8 @@ export default function Calculator() {
                     borderWidth: 5,
                     flex: 1,
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+                    paddingTop: 370
                 }
             }>
                 <View style={
@@ -88,6 +94,19 @@ export default function Calculator() {
 
                     </View>
 
+                    <View>
+                        <Text style={styles.historyText}>History:</Text>
+                        <FlatList
+                            data={history}
+                            renderItem={({ item }) =>
+                                <View>
+                                    <Text>{item}</Text>
+                                </View>
+                            }
+                        />
+                    </View>
+
+
                 </View>
 
             </View >
@@ -129,5 +148,9 @@ const styles = StyleSheet.create({
         color: "black",
         fontSize: 50,
         fontWeight: "bold"
+    },
+    historyText: {
+        fontWeight: "bold",
+        paddingTop: 15
     }
 })
