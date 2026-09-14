@@ -20,12 +20,16 @@ export default function Calculator() {
         const sum = Number(firstNumber) + Number(secondNumber);
         setResult(sum);
         setHistory([...history, `${firstNumber} + ${secondNumber} = ${sum}`]);
+        setFirstNumber("");
+        setSecondNumber("");
     }
 
     const buttonMinus = () => {
         const diff = Number(firstNumber) - Number(secondNumber);
         setResult(diff);
         setHistory([...history, `${firstNumber} - ${secondNumber} = ${diff}`]);
+        setFirstNumber("");
+        setSecondNumber("");
     }
 
     return (
@@ -127,9 +131,11 @@ const styles = StyleSheet.create({
     // input -elementtien tyylitys
     input: {
         height: 40,
+        width: 160,
         margin: 12,
         borderWidth: 1,
         padding: 10,
+        textAlign: "center"
     },
     buttonRow: {
         flexDirection: "row",
