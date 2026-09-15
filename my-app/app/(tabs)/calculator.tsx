@@ -1,5 +1,6 @@
+import { Link } from "expo-router";
 import { useState } from "react";
-import { FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 
 export default function Calculator() {
@@ -40,8 +41,7 @@ export default function Calculator() {
                     borderWidth: 5,
                     flex: 1,
                     justifyContent: "center",
-                    alignItems: "center",
-                    paddingTop: 370
+                    alignItems: "center"
                 }
             }>
                 <View style={
@@ -99,15 +99,7 @@ export default function Calculator() {
                     </View>
 
                     <View>
-                        <Text style={styles.historyText}>History:</Text>
-                        <FlatList
-                            data={history}
-                            renderItem={({ item }) =>
-                                <View>
-                                    <Text>{item}</Text>
-                                </View>
-                            }
-                        />
+                        <Link href="/(tabs)/calculatorHistory"><Text>See history ({history.length})</Text></Link>
                     </View>
 
 
