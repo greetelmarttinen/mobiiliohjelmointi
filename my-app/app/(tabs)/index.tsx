@@ -5,7 +5,7 @@ import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Text } from '@react-navigation/elements';
+import { Text } from 'react-native';
 
 export default function HomeScreen() {
   return (
