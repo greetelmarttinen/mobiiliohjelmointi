@@ -28,7 +28,7 @@ export default function Calculator() {
     const buttonPlus = () => {
         const sum = Number(firstNumber) + Number(secondNumber);
         setResult(sum);
-        setHistory([...history, { a: +firstNumber, b: +secondNumber, result, op: "+" }]);
+        setHistory([...history, { a: +firstNumber, b: +secondNumber, result: sum, op: "+" }]);
         setFirstNumber("");
         setSecondNumber("");
     }
@@ -36,7 +36,7 @@ export default function Calculator() {
     const buttonMinus = () => {
         const diff = Number(firstNumber) - Number(secondNumber);
         setResult(diff);
-        setHistory([...history, { a: +firstNumber, b: +secondNumber, result, op: "-" }]);
+        setHistory([...history, { a: +firstNumber, b: +secondNumber, result: diff, op: "-" }]);
         setFirstNumber("");
         setSecondNumber("");
     }

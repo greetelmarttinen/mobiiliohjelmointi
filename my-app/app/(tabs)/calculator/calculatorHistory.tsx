@@ -23,6 +23,7 @@ export default function CalculatorHistory() {
                             <Text>{item.a} {item.op} {item.b} = {item.result}</Text>
                         </View>
                     }
+                    keyExtractor={(_, index) => index.toString()}
                 />
             </View>
         </TouchableWithoutFeedback>
