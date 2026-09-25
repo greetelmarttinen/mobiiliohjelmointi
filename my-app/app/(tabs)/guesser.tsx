@@ -55,6 +55,7 @@ export default function Guesser() {
         setCorrectAnsw(Math.floor(Math.random() * 100) + 1);
         setGuess("");
         setGuesses([]);
+        setMessage("");
     }
 
 
@@ -97,6 +98,13 @@ export default function Guesser() {
                         <Pressable onPress={guessButton}>
                             <Text style={styles.button}>
                                 Make a guess!
+                            </Text>
+                        </Pressable>
+                    </View>
+                    <View>
+                        <Pressable onPress={restart}>
+                            <Text style={styles.button}>
+                                Restart game
                             </Text>
                         </Pressable>
                     </View>
