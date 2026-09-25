@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 // tyypitetään repository -objekti
 type Repository = {
@@ -14,6 +14,8 @@ export default function Recipes() {
     const [keyword, setKeyword] = useState("");
 
     const [repositories, setRepositories] = useState<Repository[]>([]);
+
+
 
     // hakutoiminto funktio
     const handleFetch = () => {
@@ -48,12 +50,32 @@ export default function Recipes() {
                 </View>
 
                 <View>
+                    {/** hakupainike */}
                     <Pressable onPress={handleFetch}>
                         <Text style={styles.button}>
                             Find
                         </Text>
                     </Pressable>
                 </View>
+
+                <View>
+                    {/** flatlist haetusta datasta */}
+                    <FlatList
+                        data={repositories}
+                        renderItem={({ item }) =>
+                            <View>
+                                <Text>
+                                    {item.strMealThumb}
+                                </Text>
+                                <Text>
+                                    {item.strMeal}
+                                </Text>
+                            </View>
+                        }
+                    />
+                </View>
+
+
 
             </View>
 
