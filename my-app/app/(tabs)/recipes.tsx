@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-// tyypitetään repository -objekti
-type Repository = {
+// tyypitetään meal -objekti
+type Meal = {
     idMeal: string;
     strMeal: string;
     strMealThumb: string;
@@ -13,7 +13,7 @@ export default function Recipes() {
     // määritellään avainsanan state (aluksi tyhjäksi)
     const [keyword, setKeyword] = useState("");
 
-    const [repositories, setRepositories] = useState<Repository[]>([]);
+    const [meals, setMeals] = useState<Meal[]>([]);
 
     // lisätään loading state, jolla voidaan seurata hakutoiminnon etenemistä
     const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ export default function Recipes() {
                     throw new Error("Error in fetch:" + response.statusText);
                 return response.json()
             })
-            .then(data => setRepositories(data.items))
+            .then(data => setMeals(data.meals))
             .catch(err => console.error(err))
             // muutetaan lataus -state false:ksi, kun pyyntö on suoritettu
             .finally(() => setLoading(false));
@@ -51,6 +51,7 @@ export default function Recipes() {
                         placeholderTextColor={"black"}
                         textAlign="center"
                         value={keyword}
+                        // asetetaan käyttäjän syöttämä keyword stateen
                         onChangeText={text => setKeyword(text)}
                     />
                 </View>
@@ -73,13 +74,14 @@ export default function Recipes() {
 
                             // flatlist haetusta datasta
                             < FlatList
-                                data={repositories}
+                                data={meals}
                                 renderItem={({ item }) =>
                                     <View>
-                                        <Text>
-                                            {item.strMealThumb}
-                                        </Text>
-                                        <Text>
+                                        <Image
+                                            source={{ uri: item.strMealThumb }}
+                                            style={styles.thumbnail}>
+                                        </Image>
+                                        <Text style={styles.title}>
                                             {item.strMeal}
                                         </Text>
                                     </View>
@@ -131,6 +133,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         color: "white",
         fontWeight: "bold"
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: "bold"
+    },
+    thumbnail: {
+        width: 50,
+        height: 50
+
     }
 })
 
