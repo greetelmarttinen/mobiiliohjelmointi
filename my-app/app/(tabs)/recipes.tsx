@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 // tyypitetään repository -objekti
 type Repository = {
@@ -15,10 +15,14 @@ export default function Recipes() {
 
     const [repositories, setRepositories] = useState<Repository[]>([]);
 
-
+    // lisätään loading state, jolla voidaan seurata hakutoiminnon etenemistä
+    const [loading, setLoading] = useState(false);
 
     // hakutoiminto funktio
     const handleFetch = () => {
+        // asetetaan lataustoiminto true:ksi ennen kuin pyyntö suoritetaan
+        setLoading(true);
+
         fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${keyword}`)
             .then(response => {
                 if (!response.ok)
@@ -26,7 +30,9 @@ export default function Recipes() {
                 return response.json()
             })
             .then(data => setRepositories(data.items))
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
+            // muutetaan lataus -state false:ksi, kun pyyntö on suoritettu
+            .finally(() => setLoading(false));
 
     }
 
@@ -59,20 +65,27 @@ export default function Recipes() {
                 </View>
 
                 <View>
-                    {/** flatlist haetusta datasta */}
-                    <FlatList
-                        data={repositories}
-                        renderItem={({ item }) =>
-                            <View>
-                                <Text>
-                                    {item.strMealThumb}
-                                </Text>
-                                <Text>
-                                    {item.strMeal}
-                                </Text>
-                            </View>
-                        }
-                    />
+                    {/** ehdollinen renderöinti ActivityIndicator -komponentin näyttämiseen */}
+                    {
+                        loading ?
+                            <ActivityIndicator size="large" />
+                            :
+
+                            // flatlist haetusta datasta
+                            < FlatList
+                                data={repositories}
+                                renderItem={({ item }) =>
+                                    <View>
+                                        <Text>
+                                            {item.strMealThumb}
+                                        </Text>
+                                        <Text>
+                                            {item.strMeal}
+                                        </Text>
+                                    </View>
+                                }
+                            />
+                    }
                 </View>
 
 
@@ -90,13 +103,13 @@ const styles = StyleSheet.create({
         backgroundColor: "#e6a28a",
         borderWidth: 5,
         flex: 1,
-        justifyContent: "center",
         alignItems: "center"
     },
     components: {
         flexDirection: "column",
         alignItems: "center",
-        gap: 15
+        gap: 15,
+        marginTop: 150
     },
     headerText: {
         fontSize: 25,
