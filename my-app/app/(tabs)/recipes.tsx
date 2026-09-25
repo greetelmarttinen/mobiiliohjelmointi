@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 // tyypitetään repository -objekti
@@ -9,7 +10,21 @@ type Repository = {
 
 export default function Recipes() {
 
+    // määritellään avainsanan state (aluksi tyhjäksi)
+    const [keyword, setKeyword] = useState("");
+
+    const [repositories, setRepositories] = useState<Repository[]>([]);
+
+    // hakutoiminto funktio
     const handleFetch = () => {
+        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${keyword}`)
+            .then(response => {
+                if (!response.ok)
+                    throw new Error("Error in fetch:" + response.statusText);
+                return response.json()
+            })
+            .then(data => setRepositories(data.items))
+            .catch(err => console.error(err));
 
     }
 
@@ -27,8 +42,8 @@ export default function Recipes() {
                         placeholder="Enter an ingredient..."
                         placeholderTextColor={"black"}
                         textAlign="center"
-                    //value={keyword}
-                    //onChangeText={text => setKeyword(text)}
+                        value={keyword}
+                        onChangeText={text => setKeyword(text)}
                     />
                 </View>
 
