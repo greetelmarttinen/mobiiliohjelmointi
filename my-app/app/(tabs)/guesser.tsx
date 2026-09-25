@@ -34,7 +34,7 @@ export default function Guesser() {
 
         // oikean vastauksen viesti
         if (guessNumber === correctAnsw) {
-            setMessage(`WOHOOO you guessed it! The number was ${correctAnsw} and it took you ${guesses.length + 1} guesses!`)
+            setMessage(`WOHOOO you guessed it! The number was ${correctAnsw} and it took you ${guesses.length + 1} guesses! Press "Restart" to start a new game :)`)
             setGuess("");
         }
 
