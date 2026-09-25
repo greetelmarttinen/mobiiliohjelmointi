@@ -1,15 +1,26 @@
-import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location";
+import { useEffect, useState } from "react";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import MapView from "react-native-maps";
 
 
 export default function Map() {
-    const [region, setRegion] = useState({
-        latitude: 60.200692,
-        longitude: 24.934302,
-        latitudeDelta: 0.0322,
-        longitudeDelta: 0.0221,
-    })
+
+    // state, johon sijainti tallennetaan
+    const [location, setLocation] = useState<Location.LocationObject | null>(null);
+
+    useEffect(() => {
+        // lupa sijainnin käyttämiseen
+        (async () => {
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== "granted") {
+                Alert.alert("No permission to get location")
+                return;
+            }
+            const currentLocation = await Location.getCurrentPositionAsync({});
+            setLocation(currentLocation);
+        })();
+    }, []);
 
 
     return (
@@ -18,20 +29,25 @@ export default function Map() {
                 <Text style={styles.headerText}>
                     Search from map
                 </Text>
-                <MapView
-                    style={styles.mapView}
-                    region={region}
-                >
+                {
+                    // kun sovellus saa käyttäjältä luvan käyttää sijaintia,
+                    // location muuttuu todeksi ja karttanäkymä renderöidään
+                    location && (
 
-                    <Marker
-                        coordinate={{
-                            latitude: 60.201373,
-                            longitude: 24.934041
-                        }}
-                        title="Haaga-Helia"
-                    />
-                </MapView>
-
+                        <MapView
+                            style={styles.mapView}
+                            initialRegion={{
+                                //käyttäjän koordinaatit
+                                latitude: location.coords.latitude,
+                                longitude: location?.coords.longitude,
+                                // zoomaustason määrittely
+                                latitudeDelta: 0.01,
+                                longitudeDelta: 0.01
+                            }}
+                            showsUserLocation={true}
+                        >
+                        </MapView>
+                    )}
 
 
             </View>
