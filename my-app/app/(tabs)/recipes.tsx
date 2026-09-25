@@ -40,6 +40,7 @@ export default function Recipes() {
     return (
         <View style={styles.container}>
             <View style={styles.components}>
+
                 <Text style={styles.headerText}>
                     Recipe search
                 </Text>
@@ -65,7 +66,7 @@ export default function Recipes() {
                     </Pressable>
                 </View>
 
-                <View>
+                <View style={styles.listContainer}>
                     {/** ehdollinen renderöinti ActivityIndicator -komponentin näyttämiseen */}
                     {
                         loading ?
@@ -76,7 +77,7 @@ export default function Recipes() {
                             < FlatList
                                 data={meals}
                                 renderItem={({ item }) =>
-                                    <View>
+                                    <View style={styles.itemRow}>
                                         <Image
                                             source={{ uri: item.strMealThumb }}
                                             style={styles.thumbnail}>
@@ -134,14 +135,26 @@ const styles = StyleSheet.create({
         color: "white",
         fontWeight: "bold"
     },
+    listContainer: {
+        flex: 1,
+        paddingBottom: 15
+    },
     title: {
-        fontSize: 18,
-        fontWeight: "bold"
+        fontSize: 15,
+        fontWeight: "bold",
+        flex: 1
     },
     thumbnail: {
         width: 50,
         height: 50
 
+    },
+    itemRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        width: 320,
+        gap: 13,
+        marginTop: 15
     }
 })
 
