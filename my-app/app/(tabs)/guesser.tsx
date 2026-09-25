@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 
 export default function Guesser() {
 
     // arvauksen tallentaminen stateen
-    const [guess, setGuess] = useState(0);
+    const [guess, setGuess] = useState("");
 
     // arvauksien määrän tallentaminen stateen
     const [guesses, setGuesses] = useState<number[]>([]);
@@ -16,26 +16,45 @@ export default function Guesser() {
     // viesti käyttäjälle
     const [message, setMessage] = useState("");
 
+    useEffect(() => restart(), []);
+
 
     const guessButton = () => {
 
-        setGuesses([...guesses, guess]);
+        // muutetaan string-tyyppinen arvaus numeroksi
+        const guessNumber = Number(guess);
+
+        if (guessNumber <= 0 || guessNumber >= 101) {
+            setMessage(`Please enter a number between 1 and 100 :)`)
+            return;
+        }
+
+        setGuesses([...guesses, guessNumber]);
+
 
         // oikean vastauksen viesti
-        if (guess === correctAnsw) {
-            setMessage(`WOHOOO you guessed it! The number was  ${correctAnsw} and it took you ${guesses.length + 1} guesses!`)
+        if (guessNumber === correctAnsw) {
+            setMessage(`WOHOOO you guessed it! The number was ${correctAnsw} and it took you ${guesses.length + 1} guesses!`)
+            setGuess("");
         }
 
         // arvaus on pienempi kuin oikea vastaus
-        if (guess < correctAnsw) {
-            setMessage("Na a aaa 😕 Your guess was too low")
+        if (guessNumber < correctAnsw) {
+            setMessage(`Na a aaa 😕 Your guess (${guess}) was too low`)
+            setGuess("");
         }
 
         // arvaus on suurempi kuin oikea vastaus
-        if (guess > correctAnsw) {
-            setMessage("Noupp 🤯 Your guess was too low")
+        if (guessNumber > correctAnsw) {
+            setMessage(`Noupp 🤯 Your guess (${guess}) was too high`)
+            setGuess("");
         }
+    }
 
+    function restart() {
+        setCorrectAnsw(Math.floor(Math.random() * 100) + 1);
+        setGuess("");
+        setGuesses([]);
     }
 
 
@@ -68,6 +87,8 @@ export default function Guesser() {
                             placeholderTextColor={"black"}
                             inputMode="numeric"
                             textAlign="center"
+                            value={guess}
+                            onChangeText={setGuess}
                         />
                     </View>
 
@@ -114,6 +135,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
+        width: 160,
         margin: 12,
         borderWidth: 1,
         padding: 10
