@@ -1,8 +1,15 @@
+import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 
 export default function Map() {
-
+    const [region, setRegion] = useState({
+        latitude: 60.200692,
+        longitude: 24.934302,
+        latitudeDelta: 0.0322,
+        longitudeDelta: 0.0221,
+    })
 
 
     return (
@@ -11,6 +18,22 @@ export default function Map() {
                 <Text style={styles.headerText}>
                     Search from map
                 </Text>
+                <MapView
+                    style={styles.mapView}
+                    region={region}
+                >
+
+                    <Marker
+                        coordinate={{
+                            latitude: 60.201373,
+                            longitude: 24.934041
+                        }}
+                        title="Haaga-Helia"
+                    />
+                </MapView>
+
+
+
             </View>
 
         </View>
@@ -20,7 +43,6 @@ export default function Map() {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#d6f1aa",
-        borderWidth: 5,
         flex: 1,
         alignItems: "center"
     },
@@ -33,5 +55,9 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 25,
         fontWeight: "bold"
+    },
+    mapView: {
+        width: 370,
+        height: 570
     }
 })
